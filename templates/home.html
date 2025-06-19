@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Welcome to Raiziom Interface</h2>
+<p>Raiziom is running. Connected Apps:</p>
+<ul>
+  {% for app in memory.get("active_apps", []) %}
+    <li>{{ app }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}

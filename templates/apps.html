@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Apps Managed by Raiziom</h2>
+<ul>
+  {% for app in apps %}
+    <li>{{ app }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
