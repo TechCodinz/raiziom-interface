@@ -20,10 +20,14 @@ def apps():
 def missions():
     try:
         r = requests.get("https://raiziom-brain.onrender.com/paiddail/missions")
+        print("Status Code:", r.status_code)
+        print("Response Text:", r.text)
         missions = r.json()
     except Exception as e:
+        print("Error fetching missions:", e)
         missions = [{"task": "Error loading missions", "reward": 0}]
     return render_template("missions.html", missions=missions)
+
 
 @app.route("/console")
 def console():
