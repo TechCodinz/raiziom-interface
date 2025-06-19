@@ -1,5 +1,6 @@
 from flask import Flask, render_template, jsonify
 import json
+import requests
 
 app = Flask(__name__)
 
@@ -17,10 +18,11 @@ def apps():
 
 @app.route("/missions")
 def missions():
-    missions = [
-        {"id": 1, "task": "Invite 5 people", "reward": 100},
-        {"id": 2, "task": "Complete setup", "reward": 50}
-    ]
+    try:
+        r = requests.get("https://raiziom-brain.onrender.com/paiddail/missions")
+        missions = r.json()
+    except Exception as e:
+        missions = [{"task": "Error loading missions", "reward": 0}]
     return render_template("missions.html", missions=missions)
 
 @app.route("/console")
