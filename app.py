@@ -20,13 +20,21 @@ def apps():
 def missions():
     try:
         r = requests.get("https://raiziom-brain.onrender.com/paiddail/missions")
-        print("Status Code:", r.status_code)
-        print("Response Text:", r.text)
-        missions = r.json()
+        print("STATUS:", r.status_code)
+        print("RAW TEXT:", r.text)
+
+        data = r.json()
+        if isinstance(data, dict) and "missions" in data:
+            missions = data["missions"]
+        elif isinstance(data, list):
+            missions = data
+        else:
+            missions = [{"task": "Unexpected data format", "reward": 0}]
     except Exception as e:
-        print("Error fetching missions:", e)
+        print("ERROR:", e)
         missions = [{"task": "Error loading missions", "reward": 0}]
     return render_template("missions.html", missions=missions)
+
 
 
 @app.route("/console")
